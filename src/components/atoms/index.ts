@@ -1,9 +1,12 @@
 import { Button } from "./button/Button";
 import { Form } from "./form/form";
-import { CardEdit } from "./card/Card";
-export {Button ,Form, CardEdit}
+import { FormAdd } from "./form/FormAdd";
+import { CardList, Card } from "./card";
 
-// import {CardEdit} from "./card/CardEdit"
-// export {CardEdit} from "@/components"
-
-export * from "./card"
+export {
+    Button,
+    Form,
+    FormAdd,
+    CardList,
+    Card
+}

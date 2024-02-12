@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {  motion } from "framer-motion";
-
-const Modal = () => {
+interface ModalProps{
+  children?: ReactNode;
+}
+const Modal:React.FC<ModalProps>  = ({children}) => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   return (
@@ -26,14 +28,12 @@ const Modal = () => {
             >
               &times;
             </button>
-            <h2 className="text-4xl capitalize leading-loose">hello!</h2>
-            <p className="leading-relaxed">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s.
-            </p>
+            <div>
+              {children}
+            </div>
+            
           </motion.div>
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
@@ -44,11 +44,11 @@ const Modal = () => {
             transition={{ type: "spring", bounce: 0, duration: 0.2 }}
             onClick={() => setIsShowModal((sideBar) => !sideBar)}
             className="bg-transparent px-5 fixed h-full w-full flex items-center justify-center top-0 left-0"
-          />
+          /> */}
         </>
       )}
     </>
   );
 };
 
-export default Modal;
+export {Modal};

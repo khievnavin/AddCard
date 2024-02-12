@@ -5,6 +5,7 @@ import Image from "next/image";
 interface CardProps {
   image: string;
   name: string;
+ 
 }
 
 const Card: React.FC<CardProps> = ({ name, image }) => {
