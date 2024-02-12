@@ -5,28 +5,29 @@ interface FormAddProps {
   addNewUser: (user: User) => void;
 }
 
-const FormAdd = ({ addNewUser , getValue}: FormAddProps) => {
+const FormAdd = ({ addNewUser, getValue }: FormAddProps) => {
+  console.log(getValue);
   const [user, setUser] = useState({
     username: "",
     profile: "",
   });
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();    
+    e.preventDefault();
     addNewUser((prevUsers) => [...prevUsers, user]);
   };
-  
-  // Get the value from the input fields: 
+
+  // Get the value from the input fields:
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('Event', e)
+    console.log("Event", e);
     setUser((prevUser) => {
       return {
         ...prevUser,
-        [e.target.name] : e.target.value,
+        [e.target.name]: e.target.value,
       };
     });
   };
- 
+
   const handleOnUploadFile = (e: React.FormEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
     if (file) {
@@ -54,13 +55,28 @@ const FormAdd = ({ addNewUser , getValue}: FormAddProps) => {
       <br />
 
       <label htmlFor="image">Image:</label>
-      <input
-        className="border rounded-md border-black m-2"
-        type="file"
-        accept="image/*"
-        name="profile"
-        onChange={handleOnUploadFile}
-      />
+      {getValue.profile ? (
+        <div className="relative">
+          <img
+            className="absolute w-[100px] h-[100px]"
+            src={getValue.profile}
+            alt="User's Photo"
+          />
+          <button className="absolute bg-red-500" onClick={() => {
+            getValue.profile = "";
+          }}>
+            &times;
+          </button>
+        </div>
+      ) : (
+        <input
+          className="border rounded-md border-black m-2"
+          type="file"
+          accept="image/*"
+          name="profile"
+          onChange={handleOnUploadFile}
+        />
+      )}
       <br />
       <button>Submit</button>
     </form>

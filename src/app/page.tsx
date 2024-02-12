@@ -17,12 +17,16 @@ export default function Home() {
   ]);
 
   const [selectCard, setSelectCard] = useState("")
-
+  const selectedUser = users.filter((user) => {
+    if(user.username === selectCard){
+      return user
+    }
+  })
   return (
     <div className="inline-block items-center justify-center mx-auto w-full">
       <CardList items={users} selectCard={selectCard} onSelectCard={setSelectCard}/>
       <Modal selectCard={selectCard}>
-        <FormAdd addNewUser={setUsers} getValue={selectCard}/>
+        <FormAdd addNewUser={setUsers} getValue={selectedUser.length > 0 ? selectedUser[0] : {username: "" , profile:""}}/>
       </Modal>
     </div>
   );
