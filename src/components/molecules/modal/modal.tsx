@@ -2,13 +2,15 @@ import { ReactNode, useState } from "react";
 import {  motion } from "framer-motion";
 interface ModalProps{
   children?: ReactNode;
+  selectCard: string;
 }
-const Modal:React.FC<ModalProps>  = ({children}) => {
+
+const Modal:React.FC<ModalProps>  = ({children, selectCard}) => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   return (
     <>
-      <button onClick={() => setIsShowModal(true)}>Add</button>
+      <button onClick={() => setIsShowModal(true)}>{selectCard ? "Edit": 'Add'}</button>
       {isShowModal && (
         <>
           <motion.div

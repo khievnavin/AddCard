@@ -5,7 +5,7 @@ interface FormAddProps {
   addNewUser: (user: User) => void;
 }
 
-const FormAdd = ({ addNewUser , getValue}: FormAddProps) => {
+const FormUpdate = ({ addNewUser }: FormAddProps) => {
   const [user, setUser] = useState({
     username: "",
     profile: "",
@@ -48,7 +48,6 @@ const FormAdd = ({ addNewUser , getValue}: FormAddProps) => {
         type="text"
         id="name"
         name="username"
-        value={getValue.username}
         onChange={handleOnChange}
       />
       <br />

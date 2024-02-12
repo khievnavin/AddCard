@@ -5,13 +5,34 @@ import Image from "next/image";
 interface CardProps {
   image: string;
   name: string;
- 
+  selectCard: string | null;
+  onSelectCard: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Card: React.FC<CardProps> = ({ name, image }) => {
+const Card: React.FC<CardProps> = ({
+  name,
+  image,
+  selectCard,
+  onSelectCard,
+}: CardProps) => {
   return (
     //Card
-    <div className="flex justify-between items-start w-[620px]  m-auto mt-5 p-2 border border-[#d6c2e7] rounded-lg ">
+    <div
+      onClick={() => {
+        // Unselect Card
+        if (selectCard == name) {
+          onSelectCard("");
+        }
+
+        // Select Card
+        onSelectCard(name);
+      }}
+      className={
+        selectCard == name
+          ? "flex justify-between items-start w-[620px] bg-gray-400 text-white  m-auto mt-5 p-2 border border-[#d6c2e7] rounded-lg "
+          : "flex justify-between items-start w-[620px]  m-auto mt-5 p-2 border border-[#d6c2e7] rounded-lg hover:bg-gray-200"
+      }
+    >
       <div className="flex flex-row justify-center gap-2">
         <div>
           <Image

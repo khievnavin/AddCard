@@ -16,11 +16,13 @@ export default function Home() {
     { username: "Leap", profile: "/Picasso.jpg" },
   ]);
 
+  const [selectCard, setSelectCard] = useState("")
+
   return (
     <div className="inline-block items-center justify-center mx-auto w-full">
-      <CardList items={users} />
-      <Modal>
-        <FormAdd addNewUser={setUsers} />
+      <CardList items={users} selectCard={selectCard} onSelectCard={setSelectCard}/>
+      <Modal selectCard={selectCard}>
+        <FormAdd addNewUser={setUsers} getValue={selectCard}/>
       </Modal>
     </div>
   );
