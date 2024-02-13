@@ -15,16 +15,21 @@ export interface User {
 export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectCard, setSelectCard] = useState("");
-
   const selectedUser = users.filter((user) => {
     if(user.id === selectCard){
       return user
     }
   })
 
+    const handleDeleteCard = (id: string) => {
+      const deleteItem = users.filter((users) => users.id !== id);
+      setUsers(deleteItem)
+  }
+
   return (
     <div className="inline-block items-center justify-center mx-auto w-full">
-      <CardList items={users} selectCard={selectCard} onSelectCard={setSelectCard}/>
+      <CardList onDeleteCard={handleDeleteCard
+      } items={users} selectCard={selectCard} onSelectCard={setSelectCard}/>
       <Modal selectCard={selectCard}>
         {selectedUser.length > 0 ? (
           <>

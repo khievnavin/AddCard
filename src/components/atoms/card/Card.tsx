@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Image from "next/image";
 
 interface CardProps {
@@ -8,6 +8,7 @@ interface CardProps {
   name: string;
   selectCard: string | null;
   onSelectCard: React.Dispatch<React.SetStateAction<string>>;
+  onDeleteCard: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Card: React.FC<CardProps> = ({
@@ -16,6 +17,7 @@ const Card: React.FC<CardProps> = ({
   image,
   selectCard,
   onSelectCard,
+  onDeleteCard
 }: CardProps) => {
   return (
     //Card
@@ -53,6 +55,7 @@ const Card: React.FC<CardProps> = ({
         </div>
       </div>
       <div>
+        <button  onClick={() => onDeleteCard(id)}>
         <i>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -106,6 +109,7 @@ const Card: React.FC<CardProps> = ({
             ></line>
           </svg>
         </i>
+        </button>
       </div>
     </div>
   );
