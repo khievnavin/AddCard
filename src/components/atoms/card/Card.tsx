@@ -1,6 +1,7 @@
 "use client";
 import React, { ReactNode, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface CardProps {
   id: string;
@@ -49,9 +50,11 @@ const Card: React.FC<CardProps> = ({
         </div>
         <div className="flex flex-col gap-0">
           <p className="text-base text-[#33363F] font-sans ">{name}</p>
-          <button className="text-xs text-[#00000] opacity-[60%] font-sans p-1 hover:bg-cyan-900 ">
+          
+              <Link href={`/${name}`}  className="text-xs text-[#00000] opacity-[60%] font-sans p-1 hover:bg-cyan-900 ">
             Preveiw
-          </button>
+          </Link>
+            
         </div>
       </div>
       <div>
