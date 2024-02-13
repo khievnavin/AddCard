@@ -5,16 +5,20 @@ interface FormAddProps {
   addNewUser: (user: User) => void;
 }
 
-const FormAdd = ({ addNewUser, getValue }: FormAddProps) => {
-  console.log(getValue);
+const FormAdd = ({ addNewUser }: FormAddProps) => {
   const [user, setUser] = useState({
+    id: "",
     username: "",
     profile: "",
   });
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addNewUser((prevUsers) => [...prevUsers, user]);
+    const newId = Math.random().toString(36).substring(2, 8); // return 1f74e
+    const newUser = { ...user, id: newId };
+    addNewUser((prevUsers) => {
+      return [...prevUsers, newUser];
+    });
   };
 
   // Get the value from the input fields:
@@ -49,34 +53,19 @@ const FormAdd = ({ addNewUser, getValue }: FormAddProps) => {
         type="text"
         id="name"
         name="username"
-        value={getValue.username}
+        value={user.username}
         onChange={handleOnChange}
       />
       <br />
 
       <label htmlFor="image">Image:</label>
-      {getValue.profile ? (
-        <div className="relative">
-          <img
-            className="absolute w-[100px] h-[100px]"
-            src={getValue.profile}
-            alt="User's Photo"
-          />
-          <button className="absolute bg-red-500" onClick={() => {
-            getValue.profile = "";
-          }}>
-            &times;
-          </button>
-        </div>
-      ) : (
-        <input
-          className="border rounded-md border-black m-2"
-          type="file"
-          accept="image/*"
-          name="profile"
-          onChange={handleOnUploadFile}
-        />
-      )}
+      <input
+        className="border rounded-md border-black m-2"
+        type="file"
+        accept="image/*"
+        name="profile"
+        onChange={handleOnUploadFile}
+      />
       <br />
       <button>Submit</button>
     </form>

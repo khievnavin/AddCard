@@ -10,7 +10,7 @@ const Modal:React.FC<ModalProps>  = ({children, selectCard}) => {
 
   return (
     <>
-      <button onClick={() => setIsShowModal(true)}>{selectCard ? "Edit": 'Add'}</button>
+      <button className=" ms-5 w-[50px] h-[45px] border rounded-full border-blue-900 bg-blue-400" onClick={() => setIsShowModal(true)}>{selectCard ? "Edit": 'Add'}</button>
       {isShowModal && (
         <>
           <motion.div

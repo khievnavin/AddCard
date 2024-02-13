@@ -12,7 +12,9 @@ const CardList = ({ items, selectCard, onSelectCard }: CardListProps) => {
   return (
     <div>
       {items.map((item, index) => (
+        
         <Card
+          id={item.id}
           name={item.username}
           key={index}
           image={item.profile}

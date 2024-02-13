@@ -4,29 +4,44 @@ import { CardList } from "@/components/atoms";
 import { Modal } from "@/components";
 import { Card } from "@/components/atoms";
 import { FormAdd } from "@/components/atoms";
+import { FormUpdate } from "@/components/atoms/form";
 
 export interface User {
+  id: string;
   username: string;
   profile: string;
 }
 
 export default function Home() {
-  const [users, setUsers] = useState<User[]>([
-    { username: "John", profile: "/Picasso.jpg" },
-    { username: "Leap", profile: "/Picasso.jpg" },
-  ]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectCard, setSelectCard] = useState("");
 
-  const [selectCard, setSelectCard] = useState("")
   const selectedUser = users.filter((user) => {
-    if(user.username === selectCard){
+    if(user.id === selectCard){
       return user
     }
   })
+
   return (
     <div className="inline-block items-center justify-center mx-auto w-full">
       <CardList items={users} selectCard={selectCard} onSelectCard={setSelectCard}/>
       <Modal selectCard={selectCard}>
-        <FormAdd addNewUser={setUsers} getValue={selectedUser.length > 0 ? selectedUser[0] : {username: "" , profile:""}}/>
+        {selectedUser.length > 0 ? (
+          <>
+              <FormUpdate selectedUser={selectedUser[0]} updateUser={setUsers} />
+          </>
+        ) : (
+          <>
+               <FormAdd addNewUser={setUsers}/>
+          </>
+        )}
+    
+       {/* {selectedUser.length > 0 ? (
+          <FormUpdate userData={users} selectCard={selectCard} getValue={selectedUser[0]} />
+        ) : (
+          <FormAdd addNewUser={setUsers} getValue={{ username: "", profile: "" }} />
+        )} */}
+     
       </Modal>
     </div>
   );

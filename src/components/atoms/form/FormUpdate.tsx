@@ -1,32 +1,43 @@
+/* eslint-disable @next/next/no-img-element */
 import { User } from "@/app/page";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 interface FormAddProps {
-  addNewUser: (user: User) => void;
+  updateUser: Dispatch<SetStateAction<User[]>>;
+  selectedUser: User;
 }
 
-const FormUpdate = ({ addNewUser }: FormAddProps) => {
+const FormUpdate: React.FC<FormAddProps> = ({ selectedUser, updateUser }) => {
   const [user, setUser] = useState({
-    username: "",
-    profile: "",
+    username: selectedUser.username,
+    profile: selectedUser.profile,
   });
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();    
-    addNewUser((prevUsers) => [...prevUsers, user]);
+    e.preventDefault();
+    updateUser((prevUsers) => {
+      return prevUsers.map((prevUser) => {
+        if (prevUser.id === selectedUser.id) {
+          return {
+            ...prevUser,
+            ...user,
+          };
+        }
+        return prevUser;
+      });
+    });
   };
-  
-  // Get the value from the input fields: 
+
+  // Get the value from the input fields:
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('Event', e)
     setUser((prevUser) => {
       return {
         ...prevUser,
-        [e.target.name] : e.target.value,
+        [e.target.name]: e.target.value,
       };
     });
   };
- 
+
   const handleOnUploadFile = (e: React.FormEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
     if (file) {
@@ -40,6 +51,15 @@ const FormUpdate = ({ addNewUser }: FormAddProps) => {
     }
   };
 
+  const handleRemoveFile = () => {
+    setUser((prevUser) => {
+      return {
+        ...prevUser,
+        profile: "",
+      };
+    });
+  };
+
   return (
     <form onSubmit={handleOnSubmit}>
       <label htmlFor="name">Name:</label>
@@ -48,22 +68,34 @@ const FormUpdate = ({ addNewUser }: FormAddProps) => {
         type="text"
         id="name"
         name="username"
+        defaultValue={selectedUser.username}
+        value={user.username}
         onChange={handleOnChange}
       />
       <br />
 
       <label htmlFor="image">Image:</label>
-      <input
-        className="border rounded-md border-black m-2"
-        type="file"
-        accept="image/*"
-        name="profile"
-        onChange={handleOnUploadFile}
-      />
+      {selectedUser.profile ? (
+        <div className="relative">
+          <img src={selectedUser.profile} alt="profile" />
+          <button className="absolute bg-red-500" onClick={handleRemoveFile}>
+            &times;
+          </button>
+        </div>
+      ) : (
+        <input
+          className="border rounded-md border-black m-2"
+          type="file"
+          accept="image/*"
+          name="profile"
+          onChange={handleOnUploadFile}
+        />
+      )}
       <br />
-      <button>Submit</button>
+
+      <button>Update</button>
     </form>
   );
 };
 
-export { FormAdd };
+export { FormUpdate };

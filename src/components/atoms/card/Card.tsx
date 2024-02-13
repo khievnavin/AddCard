@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 
 interface CardProps {
+  id: string;
   image: string;
   name: string;
   selectCard: string | null;
@@ -10,6 +11,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({
+  id,
   name,
   image,
   selectCard,
@@ -20,15 +22,15 @@ const Card: React.FC<CardProps> = ({
     <div
       onClick={() => {
         // Unselect Card
-        if (selectCard == name) {
+        if (selectCard === id) {
           onSelectCard("");
+        } else {
+          // Select Card
+          onSelectCard(id);
         }
-
-        // Select Card
-        onSelectCard(name);
       }}
       className={
-        selectCard == name
+        selectCard === id
           ? "flex justify-between items-start w-[620px] bg-gray-400 text-white  m-auto mt-5 p-2 border border-[#d6c2e7] rounded-lg "
           : "flex justify-between items-start w-[620px]  m-auto mt-5 p-2 border border-[#d6c2e7] rounded-lg hover:bg-gray-200"
       }
