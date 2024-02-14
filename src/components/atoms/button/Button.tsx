@@ -52,7 +52,7 @@ const Button: React.FC<ButtonProps> = ({
   const disableStyle = isDisabled
     ? "cursor-not-allowed opacity-50"
     : "cursor-pointer";
-  const combinedClassName = `rounded-lg ${disableStyle} ${colorSchemeClass} ${sizeClass} ${className}`;
+    const combinedClassName = `fixed bottom-5 right-5 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-all duration-300 ease-in-out`;
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     if (!isDisabled && onClick) {
@@ -63,7 +63,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       disabled={isDisabled}
-      className={combinedClassName}
+      className={className}
       onClick={handleClick}
     >
       {children}

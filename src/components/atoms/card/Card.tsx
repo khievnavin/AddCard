@@ -58,7 +58,9 @@ const Card: React.FC<CardProps> = ({
         </div>
       </div>
       <div>
-        <button  onClick={() => onDeleteCard(id)}>
+        <button  onClick={(e) => {onDeleteCard(id) 
+        e.stopPropagation()}
+      }>
         <i>
           <svg
             xmlns="http://www.w3.org/2000/svg"

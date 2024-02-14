@@ -1,16 +1,23 @@
 import { ReactNode, useState } from "react";
-import {  motion } from "framer-motion";
-interface ModalProps{
+import { motion } from "framer-motion";
+import { Button } from "@/components";
+import FloatingButton from "@/components/atoms/button/FloatingButton";
+interface ModalProps {
   children?: ReactNode;
   selectCard: string;
 }
 
-const Modal:React.FC<ModalProps>  = ({children, selectCard}) => {
+const Modal: React.FC<ModalProps> = ({ children, selectCard }) => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   return (
     <>
-      <button className=" ms-5 w-[50px] h-[45px] border rounded-full border-blue-900 bg-blue-400" onClick={() => setIsShowModal(true)}>{selectCard ? "Edit": 'Add'}</button>
+      <FloatingButton
+        onClick={() => setIsShowModal(true)}
+        position="bottom-right"
+      >
+        {selectCard ? "-" : "+"}
+      </FloatingButton>
       {isShowModal && (
         <>
           <motion.div
@@ -30,10 +37,7 @@ const Modal:React.FC<ModalProps>  = ({children, selectCard}) => {
             >
               &times;
             </button>
-            <div>
-              {children}
-            </div>
-            
+            <div>{children}</div>
           </motion.div>
           {/* <motion.div
             initial={{ opacity: 0 }}
@@ -53,4 +57,4 @@ const Modal:React.FC<ModalProps>  = ({children, selectCard}) => {
   );
 };
 
-export {Modal};
+export { Modal };
