@@ -5,7 +5,8 @@ import { Modal } from "@/components";
 import { Card } from "@/components/atoms";
 import { FormAdd } from "@/components/atoms";
 import { FormUpdate } from "@/components/atoms/form";
-
+import { ValidationForm } from "@/components/atoms/form/ValidationForm";
+import { SearchInput } from "@/components/atoms/form/SearchInput";
 export interface User {
   id: string;
   username: string;
@@ -28,6 +29,7 @@ export default function Home() {
 
   return (
     <div className="inline-block items-center justify-center mx-auto w-full">
+      <SearchInput></SearchInput>
       <CardList onDeleteCard={handleDeleteCard
       } items={users} selectCard={selectCard} onSelectCard={setSelectCard}/>
       <Modal selectCard={selectCard}>
@@ -37,7 +39,7 @@ export default function Home() {
           </>
         ) : (
           <>
-               <FormAdd addNewUser={setUsers}/>
+               <ValidationForm addNewUser={setUsers}/>
           </>
         )}
     
